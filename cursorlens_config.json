@@ -1,0 +1,20 @@
+{
+  "triggers": [
+    "capslock",
+    "ctrl+space"
+  ],
+  "settings_hotkey": "ctrl+alt+c",
+  "offset_x": -2,
+  "offset_y": 20,
+  "display_mode": "trigger",
+  "dwell_ms": 2000,
+  "clamp_to_screen": true,
+  "show_caption": false,
+  "show_marker": false,
+  "show_debug": false,
+  "click_through": true,
+  "lang_override": "auto",
+  "scale": 0.74,
+  "alpha": 0.95,
+  "ui_language": "zh"
+}
