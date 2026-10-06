@@ -2,6 +2,8 @@
 
 **CursorLens (光标镜)** is a cursor-following floating indicator built with the Python standard-library **tkinter** GUI toolkit, which used for input method detection and display. It shows, right next to the mouse pointer, the current **input language (Chinese / English)** and the current **case state (upper / lower)**. The motivating problem: while typing you often need to check whether CapsLock is on and whether the IME is in Chinese or English mode, which normally means looking down at the status area at the bottom-right corner of the taskbar. CursorLens moves that information into a small capsule beside the cursor, so your eyes stay on the text and your hands stay on the keyboard.Note: This file has only been tested on Windows 11 and is not guaranteed to work on other versions of the operating system
 
+( BTW : To switch to English, you need to press and hold Ctrl+Alt+C enter the settings menu. Choosing "样式/其他" and find the "界面语言" select "English")
+
 ## Folder Structure
 
 - `cursorlensv1.0.0.py` – the source code (a single file, standard library only, no third-party dependency).
@@ -26,6 +28,8 @@ The floating panel (the `◤` marker rotates to point at the mouse):
 | Offset caption | Current x / y offset, e.g. `x +50 y +0` | -100 ~ +100 |
 
 Colours: Chinese = blue, English = slate; upper-case (大 / U) = red-orange, lower-case (小 / L) = slate, so the state is readable from colour alone.
+
+![Show the badge](readmepic/readmeshowpic2.png)
 
 ## Core Principle
 
@@ -81,7 +85,13 @@ case = \begin{cases} 大, & caps \wedge cjk \\ 小, & \neg caps \wedge cjk \\ U,
 - The default settings hotkey is the three-key combo `Ctrl+Alt+C`. It opens a tabbed settings window:
 
   - **Triggers & Display**: tick the candidate trigger combos (**at most 2**), pick the display mode (on trigger / toggle / always), pick the visible duration (0.3 / 0.5 / 1 / 2 / 4 s), and record a new settings hotkey.
+
+![Settings-T&D](readmepic/readmeshowpic4.png)
+
   - **Position**: x / y offset sliders (-100 ~ +100 px), a reset button, and the keep-inside-screen clamp. While this window is open the panel previews live so you can tune it visually.
+
+![Settings-Position](readmepic/readmeshowpic6.png)
+
   - **Style / Misc**: scale, opacity, show offset caption / show marker, click-through switch, **show diagnostics**, the language-detection fallback (auto / force 拼 / 五 / 中 / EN), UI language (中文 / English), a **Diagnostics** button (copies the detection data), restore defaults, and quit.
 
 - Every change in the settings window takes effect **immediately** and is written to `cursorlens_config.json`; there is no "Apply" button, and the file is read back on the next start.
@@ -89,6 +99,8 @@ case = \begin{cases} 大, & caps \wedge cjk \\ 小, & \neg caps \wedge cjk \\ U,
 - Quitting: open the settings window and click "退出程序 / Quit". (While running in the background there is no taskbar icon, so this hotkey is the only way in.)
 
 ## Additional Notes & Boundary Conditions
+
+![Settings-Style/Misc](readmepic/readmeshowpic8.png)
 
 - ① **Platform limit.** Only Windows can read real IME and key state (it relies on `user32.dll` / `imm32.dll`). On other platforms the module still imports and runs, but the state is empty and nothing is displayed; adapt by replacing the `WinAPI` implementation.
 
